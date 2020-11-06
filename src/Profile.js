@@ -1,16 +1,32 @@
 import React, {useState} from "react";
 import Button from "react-native-button";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { AppStyles } from "./AppStyles";
 import { AsyncStorage, ActivityIndicator } from "react-native";
+import {AuthContext} from "./context"
 
 
 const Profile = ({navigation}) => {
+  const { signOut } = React.useContext(AuthContext);
  const [isLoading] = useState(false)
  
 return (
       <View style={styles.container}>
-        <Text style={styles.title}>Welcome to your profile app</Text>
+      <Text style={styles.title}>Your Profile</Text>
+        <Image style={styles.avatar} source={require('../assets/avatar-2.jpg')} />
+
+        <Text style={styles.medium}>Full Name</Text>
+        <Text style={styles.subTitle}>John Doe</Text>
+
+        <Text style={styles.medium}>Email</Text>
+        <Text style={styles.subTitle}>johndoe@gmail.com</Text>
+
+        <Text style={styles.medium}>Phone</Text>
+        <Text style={styles.subTitle}>080345646763</Text>
+        
+        <TouchableOpacity style={styles.button} onPress={() => signOut()}>
+          <Text style={styles.signoutText}>Sign Out</Text>
+        </TouchableOpacity>
       </View>
   )
 
@@ -20,12 +36,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    marginTop: 50,
     marginBottom: 150
   },
-  logo: {
-    width: 200,
-    height: 200
+  avatar: {
+    width: 160,
+    height: 165,
+    borderRadius: 75
+  },
+  button: {
+    marginTop: 100
+  },
+  signoutText: {
+    fontSize: 15,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginLeft: 20,
+    marginRight: 20
   },
   title: {
     fontSize: AppStyles.fontSize.title,
@@ -37,31 +64,25 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20
   },
-  loginContainer: {
-    width: AppStyles.buttonWidth.main,
-    backgroundColor: AppStyles.color.tint,
-    borderRadius: AppStyles.borderRadius.main,
-    padding: 10,
-    marginTop: 30
+  subTitle: {
+    fontSize: AppStyles.fontSize.content,
+    fontWeight: "bold",
+    color: AppStyles.color.tint,
+    marginTop: 10,
+    textAlign: "center",
+    marginBottom: 15,
+    marginLeft: 20,
+    marginRight: 20
   },
-  loginText: {
-    color: AppStyles.color.white
-  },
-  signupContainer: {
-    width: AppStyles.buttonWidth.main,
-    backgroundColor: AppStyles.color.white,
-    borderRadius: AppStyles.borderRadius.main,
-    padding: 8,
-    borderWidth: 1,
-    borderColor: AppStyles.color.tint,
-    marginTop: 15
-  },
-  signupText: {
-    color: AppStyles.color.tint
-  },
-  spinner: {
-    marginTop: 200
+  medium: {
+    fontSize: AppStyles.fontSize.normal,
+    fontWeight: "bold",
+    marginTop: 20,
+    textAlign: "center",
+    marginLeft: 20,
+    marginRight: 20
   }
+  
 });
 
 export default Profile;
